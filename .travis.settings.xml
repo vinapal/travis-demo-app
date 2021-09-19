@@ -3,7 +3,7 @@
       <server>
          <id>anypoint-platform</id>
          <username>${env.username}</username>
-	 <password>${env.password}</password>
+		 <password>${env.password}</password>
       </server>	
    </servers>
-<settings>
+</settings>
