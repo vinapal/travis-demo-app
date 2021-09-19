@@ -12,3 +12,4 @@ http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/htt
 		<set-payload value="#[now() as String { format: &quot;yyyy-dd-mm'T'hh:mm:ss&quot;}]" doc:name="Set Payload" doc:id="95e47049-f467-40a8-9161-557958b90c48" />
 	</flow>
 </mule>
+
