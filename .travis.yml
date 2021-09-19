@@ -1,16 +1,35 @@
 language: java
 jdk:
-    - openjdk8
+  - openjdk8
+ 
+env:
+  - NODE_VERSION=14
     
 cache:
-    directories:
-        - "$HOME/.cache"
+  directories:
+    - "$HOME/.cache"
         
 jobs:
+  include:
     - stage: deploy
-      name: 'Deploy to Dev Environment'
+      name: 'Deploy to CloudHub Development Environment'
       script:
-            - mvn clean install
-            - cp .travis.settings.xml $HOME/.m2/settings.xml
-            - mvn deploy -DmuleDeploy -Dserver=$server -Dworkers=$workers -DworkerType=$workerType -Denvironment=$environment -DmuleVersion=$muleVersion -DappName=$appName
-      if: branch = dev      
+        - cp .travis.settings.xml $HOME/.m2/settings.xml
+        - mvn deploy -DmuleDeploy -Dserver=$server -Dworkers=$workers -DworkerType=$workerType -Denvironment=$environment -DmuleVersion=$muleVersion -DappName=$appName
+      on: 
+        branch: dev      
+    
+    - stage:
+      name: 'Perform Newman Test'
+      install:
+        - nvm install $NODE_VERSION
+        - npm install newman
+      before_script:
+        - nvm use $NODE_VERSION
+        - npm --version
+        - node --version
+        - node_modules/.bin/newman --version
+      script:
+        - node_modules/.bin/newman run travis-dateTime-collection.postman_collection.json --disable-unicode
+      on:
+        branch: dev

@@ -1,0 +1,47 @@
+{
+	"info": {
+		"_postman_id": "b5c5efcd-42ea-40cf-9603-129b0c30ac65",
+		"name": "travis-dateTime-collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "GET DATETIME",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Response time is less than 300ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(300);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://travis-datetime-app.us-e2.cloudhub.io/v1.0/dateTime",
+					"protocol": "http",
+					"host": [
+						"travis-datetime-app",
+						"us-e2",
+						"cloudhub",
+						"io"
+					],
+					"path": [
+						"v1.0",
+						"dateTime"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
