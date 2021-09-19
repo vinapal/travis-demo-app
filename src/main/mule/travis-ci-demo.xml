@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd">
+	<http:listener-config name="travisci_listenerConfig" doc:name="HTTP Listener config" doc:id="4d258e2a-73da-44f4-acb9-436606bb9ee9" >
+		<http:listener-connection host="0.0.0.0" port="8081" />
+	</http:listener-config>
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="0bc56636-a7d6-46e5-b73a-eb3e8eb8282c" basePath="/api" >
+		<http:listener-connection host="0.0.0.0" port="8081" />
+	</http:listener-config>
+	<flow name="travis-ci-demoFlow" doc:id="784a3480-e0ec-4ee6-8f18-328379aec8bb" >
+		<http:listener doc:name="Listener" doc:id="71df5d65-381b-43d1-b12f-d55f5ff12d2a" config-ref="HTTP_Listener_config" path="/dateTime"/>
+		<set-payload value="#[now() as String { format: &quot;yyyy-dd-mm'T'hh:mm:ss&quot;}]" doc:name="Set Payload" doc:id="95e47049-f467-40a8-9161-557958b90c48" />
+	</flow>
+</mule>
